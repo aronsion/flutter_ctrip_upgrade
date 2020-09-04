@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:upgrade/pages/destination_page.dart';
 import 'package:upgrade/pages/home_page.dart';
 import 'package:upgrade/pages/my_page.dart';
+import 'package:upgrade/pages/service_page.dart';
 import 'package:upgrade/pages/travel_page.dart';
 
 class TabNavigator extends StatefulWidget {
@@ -24,7 +25,7 @@ class _TabNavigatorState extends State<TabNavigator> {
     return Scaffold(
       body: PageView(
         controller: _controller,
-        children: [HomePage(), DestinationPage(), TravelPage(), MyPage()],
+        children: [HomePage(), DestinationPage(), TravelPage(),ServicePage(), MyPage()],
         physics: NeverScrollableScrollPhysics(), //禁止滑动
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -84,6 +85,22 @@ class _TabNavigatorState extends State<TabNavigator> {
               )),
           BottomNavigationBarItem(
               icon: Image.asset(
+                'images/service.png',
+                width: 23.0,
+                height: 23.0,
+              ),
+              activeIcon: Image.asset(
+                'images/service_active.png',
+                width: 23.0,
+                height: 23.0,
+              ),
+              title: Text(
+                '客服',
+                style: TextStyle(
+                    color: _currentIndex != 3 ? _defaultColor : _activeColor),
+              )),
+          BottomNavigationBarItem(
+              icon: Image.asset(
                 'images/wode.png',
                 width: 23.0,
                 height: 23.0,
@@ -96,7 +113,7 @@ class _TabNavigatorState extends State<TabNavigator> {
               title: Text(
                 '我的',
                 style: TextStyle(
-                    color: _currentIndex != 3 ? _defaultColor : _activeColor),
+                    color: _currentIndex != 4 ? _defaultColor : _activeColor),
               )),
         ],
       ),
