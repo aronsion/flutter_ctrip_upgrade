@@ -41,9 +41,46 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+    - images/type_channelplane.png
+    - images/type_district.png
+    - images/type_food.png
+    - images/type_hotel.png
+    - images/type_huodong.png
+    - images/type_shop.png
+    - images/type_sight.png
+    - images/type_ticket.png
+    - images/type_travelgroup.png
+    - images/type_channelgroup.png
+    - images/type_channelgs.png
+    - images/type_channeltrain.png
+    - images/type_cruise.png
+    - images/lvpai_search_tag.png
+    - images/lvpai_issue_sight.png
+    - images/lvpai_search_list.png
+    - images/lvpai_issue_position.png
+    - images/user1.png
+    - images/xiaoxi_white.png
+    - images/xiecheng.png
+    - images/xiecheng_active.png
+    - images/xiaoxi_grey.png
+    - images/mude.png
+    - images/mude_active.png
+    - images/lvpai.png
+    - images/lvpai_active.png
+    - images/wode.png
+    - images/wode_active.png
+    - images/grid-nav-items-jhj.png
+    - images/grid-nav-items-minsu.png
+    - images/grid-nav-items-hotel.png
+    - images/grid-nav-items-flight.png
+    - images/grid-nav-items-train.png
+    - images/grid-nav-items-travel.png
+    - images/grid-nav-items-dingzhi.png
+    - images/yuyin.png
+    - images/sousuo.png
+    - images/lvxiang.png
+    - images/kefu.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -68,5 +105,11 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: PingFang
+      fonts:
+        # - asset: fonts/PingFang-Regular.ttf
+        # - asset: fonts/PingFang-Italic.ttf
+        - asset: fonts/PingFang_Bold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
