@@ -8,7 +8,7 @@ import 'package:upgrade/model/sales_box_model.dart';
 import 'package:upgrade/widget/grid_nav_new.dart';
 import 'package:upgrade/widget/loading_container.dart';
 import 'package:upgrade/widget/local_nav.dart';
-import 'package:upgrade/widget/square_swiper_pagination.dart';
+import 'package:upgrade/plugin/square_swiper_pagination.dart';
 import 'package:upgrade/widget/webview.dart';
 
 const AppBAR_SCROLL_OFFSET = 100;
