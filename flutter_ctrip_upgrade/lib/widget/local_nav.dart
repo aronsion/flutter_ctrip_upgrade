@@ -18,8 +18,8 @@ class LocalNav extends StatelessWidget {
           BoxShadow(
             color: Colors.black12,
             blurRadius: 12.0,
-          )
-        ]
+          ),
+        ],
       ),
       child: Padding(
         padding: EdgeInsets.all(8),
@@ -28,14 +28,11 @@ class LocalNav extends StatelessWidget {
     );
   }
 
-
-  _items(BuildContext context){
-    if(localNavList == null){
-      return null;
-    }
+  _items(BuildContext context) {
+    if (localNavList == null) return null;
     List<Widget> items = [];
-    localNavList.forEach((element) {
-      items.add(_item(context,element));
+    localNavList.forEach((model) {
+      items.add(_item(context, model));
     });
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,21 +40,19 @@ class LocalNav extends StatelessWidget {
     );
   }
 
-  Widget _item(BuildContext context,CommonModel model){
+  Widget _item(BuildContext context, CommonModel model) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context)=> WebView(
-            url: model.url,
-            statusBarColor: model.statusBarColor,
-            hideAppBar: model.hideAppBar,
-          )
-        ));
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => WebView(
+          url: model.url,
+          statusBarColor: model.statusBarColor,
+          hideAppBar: model.hideAppBar,
+        )));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Image.network(
             model.icon,
             width: 40,
@@ -66,7 +61,7 @@ class LocalNav extends StatelessWidget {
           Text(
             model.title,
             style: TextStyle(fontSize: 12),
-          )
+          ),
         ],
       ),
     );

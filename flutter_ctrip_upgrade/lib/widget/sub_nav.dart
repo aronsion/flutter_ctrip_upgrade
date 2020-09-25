@@ -4,9 +4,9 @@ import 'package:upgrade/util/navigator_util.dart';
 import 'package:upgrade/widget/webview.dart';
 
 class SubNav extends StatelessWidget {
-
   final List<CommonModel> subNavList;
-  const SubNav({Key key,@required this.subNavList}) : super(key:key);
+
+  const SubNav({Key key, @required this.subNavList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +21,24 @@ class SubNav extends StatelessWidget {
     );
   }
 
-  _items(BuildContext context){
-    if(subNavList == null){
-      return null;
-    }
+  _items(BuildContext context) {
+    if (subNavList == null) return null;
     List<Widget> items = [];
     subNavList.forEach((model) {
-      items.add(_item(context,model));
+      items.add(_item(context, model));
     });
-    int separate = (subNavList.length/2+0.5).toInt();
+    int separate = (subNavList.length / 2 + 0.5).toInt();
     return Column(
-      children: [
+      children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: items.sublist(0,separate),
+          children: items.sublist(0, separate),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: 10),
-        ),
+        Padding(padding: EdgeInsets.only(top: 10),),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: items.sublist(separate,subNavList.length),
-        )
+          children: items.sublist(separate, subNavList.length),
+        ),
       ],
     );
   }
@@ -51,8 +47,8 @@ class SubNav extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: GestureDetector(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>WebView(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WebView(
             url: model.url,
             statusBarColor: model.statusBarColor,
             hideAppBar: model.hideAppBar,
@@ -61,8 +57,8 @@ class SubNav extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
+          children: <Widget>[
+            Image.network(
               model.icon,
               width: 28,
               height: 28,
@@ -70,12 +66,11 @@ class SubNav extends StatelessWidget {
             Text(
               model.title,
               style: TextStyle(fontSize: 12),
-            )
+            ),
           ],
         ),
       ),
     );
   }
-
-
 }
+

@@ -22,11 +22,11 @@ class WebView extends StatefulWidget {
 
   WebView(
       {this.url,
-      this.statusBarColor,
-      this.title,
-      this.hideAppBar,
-      this.backForbid,
-      this.hideHead});
+        this.statusBarColor,
+        this.title,
+        this.hideAppBar,
+        this.backForbid = false,
+        this.hideHead = false});
 
   @override
   _WebViewState createState() => _WebViewState();
@@ -46,21 +46,21 @@ class _WebViewState extends State<WebView> {
     _onUrlChanged = webViewReference.onUrlChanged.listen((String url) {});
     _onStateChanged =
         webViewReference.onStateChanged.listen((WebViewStateChanged state) {
-      switch (state.type) {
-        case WebViewState.startLoad:
-          if (_isToMain(state.url) && !exiting) {
-            if (widget.backForbid) {
-              webViewReference.launch(widget.url);
-            } else {
-              Navigator.pop(context);
-              exiting = true;
-            }
+          switch (state.type) {
+            case WebViewState.startLoad:
+              if (_isToMain(state.url) && !exiting) {
+                if (widget.backForbid) {
+                  webViewReference.launch(widget.url);
+                } else {
+                  Navigator.pop(context);
+                  exiting = true;
+                }
+              }
+              break;
+            default:
+              break;
           }
-          break;
-        default:
-          break;
-      }
-    });
+        });
     _onHttpError =
         webViewReference.onHttpError.listen((WebViewHttpError error) {});
     super.initState();
@@ -88,7 +88,7 @@ class _WebViewState extends State<WebView> {
 
   @override
   Widget build(BuildContext context) {
-    String statusBarColorStr = widget.statusBarColor ?? '#ffffff';
+    String statusBarColorStr = widget.statusBarColor ?? 'ffffff';
     Color backButtonColor;
     if (statusBarColorStr == 'ffffff') {
       backButtonColor = Colors.black;
@@ -97,27 +97,29 @@ class _WebViewState extends State<WebView> {
     }
     return Scaffold(
       body: MediaQuery.removePadding(
-          removeTop: true,
-          context: context,
-          child: Column(
-            children: [
-              _appBar(Color(int.parse('0xff'+statusBarColorStr)), backButtonColor),
-              Expanded(
-                child: WebviewScaffold(
-                  url: widget.url,
-                  withZoom: true,
-                  withLocalStorage: true,
-                  hidden: true,
-                  initialChild: Container(
-                    color: Colors.white,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+        removeTop: true,
+        context: context,
+        child: Column(
+          children: <Widget>[
+            _appBar(
+                Color(int.parse('0xff' + statusBarColorStr)), backButtonColor),
+            Expanded(
+              child: WebviewScaffold(
+                url: widget.url,
+                withZoom: true,
+                withLocalStorage: true,
+                hidden: true,
+                initialChild: Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-              )
-            ],
-          )),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -126,11 +128,10 @@ class _WebViewState extends State<WebView> {
       return widget.hideHead
           ? Container()
           : Container(
-              color: backgroundColor,
-              height:
-                  Theme.of(context).platform == TargetPlatform.iOS ? 34 : 29,
-              width: double.infinity,
-            );
+        color: backgroundColor,
+        height: Theme.of(context).platform == TargetPlatform.iOS ? 34 : 29,
+        width: double.infinity,
+      );
     }
 
     return Container(
@@ -139,9 +140,9 @@ class _WebViewState extends State<WebView> {
       child: FractionallySizedBox(
         widthFactor: 1,
         child: Stack(
-          children: [
+          children: <Widget>[
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
               },
               child: Container(
@@ -159,7 +160,7 @@ class _WebViewState extends State<WebView> {
               child: Center(
                 child: Text(
                   widget.title ?? '',
-                  style: TextStyle(color: backButtonColor,fontSize: 18.0),
+                  style: TextStyle(color: backButtonColor, fontSize: 18),
                 ),
               ),
             )
@@ -169,3 +170,4 @@ class _WebViewState extends State<WebView> {
     );
   }
 }
+

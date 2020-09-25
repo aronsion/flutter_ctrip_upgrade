@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:upgrade/home_dao.dart';
+import 'package:upgrade/dao/home_dao.dart';
 import 'package:upgrade/model/common_model.dart';
 import 'package:upgrade/model/grid_nav_model.dart';
 import 'package:upgrade/model/home_model.dart';
 import 'package:upgrade/model/sales_box_model.dart';
 import 'package:upgrade/pages/search_page.dart';
 import 'package:upgrade/pages/speak_page.dart';
+import 'package:upgrade/plugin/square_swiper_pagination.dart';
 import 'package:upgrade/util/navigator_util.dart';
 import 'package:upgrade/widget/grid_nav_new.dart';
-import 'package:upgrade/widget/loading_container.dart';
 import 'package:upgrade/widget/local_nav.dart';
-import 'package:upgrade/plugin/square_swiper_pagination.dart';
 import 'package:upgrade/widget/sales_box.dart';
 import 'package:upgrade/widget/search_bar.dart';
 import 'package:upgrade/widget/sub_nav.dart';
 import 'package:upgrade/widget/webview.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:upgrade/widget/loading_container.dart';
+
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '目的地 | 酒店 | 景点 | 航班号';

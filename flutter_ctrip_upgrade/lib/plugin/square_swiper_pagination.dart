@@ -3,20 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SquareSwiperPagination extends SwiperPlugin {
+  ///color when current index,if set null , will be Theme.of(context).primaryColor
   final Color activeColor;
+
+  ///,if set null , will be Theme.of(context).scaffoldBackgroundColor
   final Color color;
+
+  ///Size of the dot when activate
   final double activeSize;
+
+  ///Size of the dot
   final double size;
+
+  /// Space between dots
   final double space;
+
   final Key key;
 
-  SquareSwiperPagination(
+  const SquareSwiperPagination(
       {this.activeColor,
-      this.color,
-      this.activeSize,
-      this.size,
-      this.space,
-      this.key});
+        this.color,
+        this.key,
+        this.size: 10.0,
+        this.activeSize: 10.0,
+        this.space: 3.0});
 
   @override
   Widget build(BuildContext context, SwiperPluginConfig config) {
@@ -35,7 +45,7 @@ class SquareSwiperPagination extends SwiperPlugin {
 
     if (config.indicatorLayout != PageIndicatorLayout.NONE &&
         config.layout == SwiperLayout.DEFAULT) {
-      return PageIndicator(
+      return new PageIndicator(
         count: config.itemCount,
         controller: config.pageController,
         layout: config.indicatorLayout,
@@ -57,8 +67,9 @@ class SquareSwiperPagination extends SwiperPlugin {
         key: Key("pagination_$i"),
         margin: EdgeInsets.all(space),
         child: Container(
+//          color: active ? activeColor : color,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size / 2),
+            borderRadius: BorderRadius.circular(size/2),
             color: active ? activeColor : color,
           ),
           width: active ? activeSize * 2 : size,
@@ -68,13 +79,13 @@ class SquareSwiperPagination extends SwiperPlugin {
     }
 
     if (config.scrollDirection == Axis.vertical) {
-      return Column(
+      return new Column(
         key: key,
         mainAxisSize: MainAxisSize.min,
         children: list,
       );
     } else {
-      return Row(
+      return new Row(
         key: key,
         mainAxisSize: MainAxisSize.min,
         children: list,

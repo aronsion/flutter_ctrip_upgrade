@@ -2,6 +2,7 @@
 //首页网格卡片模型
 import 'package:upgrade/model/common_model.dart';
 
+//首页网格卡片模型
 class GridNavModel {
   final GridNavItem hotel;
   final GridNavItem flight;

@@ -8,7 +8,7 @@ class CommonModel {
   CommonModel(
       {this.icon, this.title, this.url, this.statusBarColor, this.hideAppBar});
 
-  factory CommonModel.fromJson(Map<String, dynamic> json){
+  factory CommonModel.fromJson(Map<String, dynamic> json) {
     return CommonModel(
         icon: json['icon'],
         title: json['title'],
@@ -18,13 +18,13 @@ class CommonModel {
     );
   }
 
-  Map<String, dynamic> toJson(){
-    final Map<String,dynamic> data = new Map<String,dynamic>();
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['icon'] = this.icon;
     data['title'] = this.title;
-    data['url'] = this.url;
-    data['statusBarColor'] = this.statusBarColor;
-    data['hideAppBar'] = this.hideAppBar;
+    data['url'] = this.title;
+    data['statusBarColor'] = this.title;
+    data['hideAppBar'] = this.title;
     return data;
   }
 }

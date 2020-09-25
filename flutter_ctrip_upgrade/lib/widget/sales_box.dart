@@ -16,18 +16,13 @@ class SalesBox extends StatelessWidget {
   }
 
   _items(BuildContext context) {
-    if (salesBoxModel == null) {
-      return null;
-    }
+    if (salesBoxModel == null) return null;
     List<Widget> items = [];
-    items.add(_doubleItem(
-        context, salesBoxModel.bigCard1, salesBoxModel.bigCard2, true));
-    items.add(_doubleItem(
-        context, salesBoxModel.smallCard1, salesBoxModel.smallCard2, true));
-    items.add(_doubleItem(
-        context, salesBoxModel.smallCard3, salesBoxModel.smallCard4, true));
+    items.add(_doubleItem(context,salesBoxModel.bigCard1,salesBoxModel.bigCard2,true));
+    items.add(_doubleItem(context,salesBoxModel.smallCard1,salesBoxModel.smallCard2,false));
+    items.add(_doubleItem(context,salesBoxModel.smallCard3,salesBoxModel.smallCard4,false));
     return Column(
-      children: [
+      children: <Widget>[
         Container(
           height: 45,
           decoration: BoxDecoration(
@@ -36,8 +31,8 @@ class SalesBox extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
+            children: <Widget>[
+              Image.network(
                 salesBoxModel.icon,
                 height: 15,
                 width: 79,
@@ -45,28 +40,31 @@ class SalesBox extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WebView(
-                                url: salesBoxModel.moreUrl,
-                                title: '更多活动',
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WebView(
+                        url: salesBoxModel.moreUrl,
+                        title: '更多活动',
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                   margin: EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Color(0xffff4e63),
-                        Color(0xffff6cc9),
-                      ]),
-                      borderRadius: BorderRadius.circular(10)),
+                    gradient: LinearGradient(colors: [
+                      Color(0xffff4e63),
+                      Color(0xffff6cc9),
+                    ]),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Text(
                     '获取更多福利 >',
                     style: TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -81,18 +79,17 @@ class SalesBox extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 4),
         ),
-        items[2]
+        items[2],
       ],
     );
   }
 
-  Widget _doubleItem(BuildContext context, CommonModel leftCard,
-      CommonModel rightCard, bool big) {
+  Widget _doubleItem(BuildContext context, CommonModel leftCard, CommonModel rightCard,bool big) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _item(context, leftCard, big, true),
-        _item(context, rightCard, big, false),
+      children: <Widget>[
+        _item(context,leftCard,big,true),
+        _item(context,rightCard,big,false),
       ],
     );
   }
@@ -100,25 +97,24 @@ class SalesBox extends StatelessWidget {
   _item(BuildContext context, CommonModel model, bool big, bool left) {
     return Expanded(
       child: GestureDetector(
-        onTap: () {
+        onTap: (){
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => WebView(
-                        url: model.url,
-                        title: model.title ?? '活动',
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => WebView(
+                url: model.url,
+                title: model.title ?? '活动',
+              ),
+            ),
+          );
         },
         child: Container(
-          height: big ? 130 : 82,
+          height: big?130:82,
           margin: left?EdgeInsets.only(right: 4):EdgeInsets.zero,
           decoration: BoxDecoration(
             color: Colors.white,
           ),
-          child: Image.network(
-            model.icon,
-            fit: BoxFit.fill,
-          ),
+          child: Image.network(model.icon,fit: BoxFit.fill,),
         ),
       ),
     );
