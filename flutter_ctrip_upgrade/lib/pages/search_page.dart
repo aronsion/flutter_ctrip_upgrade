@@ -21,7 +21,6 @@ const TYPES = [
   'ticket',
   'travelgroup'
 ];
-
 const URL =
     'http://m.ctrip.com/restapi/h5api/globalsearch/search?source=mobileweb&action=mobileweb&keyword=';
 
@@ -31,11 +30,7 @@ class SearchPage extends StatefulWidget {
   final String keyword;
   final String hint;
 
-  SearchPage(
-      {this.hideLeft = true,
-      this.searchUrl = URL,
-      this.keyword,
-      this.hint = "目的地 | 酒店 | 景点 | 航班号"});
+  SearchPage({this.hideLeft = true, this.searchUrl = URL, this.keyword, this.hint="目的地 | 酒店 | 景点 | 航班号"});
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -57,36 +52,39 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          _appbar(),
+        children: <Widget>[
+          _appBar(),
           MediaQuery.removePadding(
-              context: context,
-              child: Expanded(
-                flex: 1,
-                child: ListView.builder(
-                    itemBuilder: (BuildContext context, int position) {
-                  return _item(position);
-                }),
-              ))
+            removeTop: true,
+            context: context,
+            child: Expanded(
+              flex: 1,
+              child: ListView.builder(
+                  itemCount: searchModel?.data?.length ?? 0,
+                  itemBuilder: (BuildContext context, int position) {
+                    return _item(position);
+                  }),
+            ),
+          )
         ],
       ),
     );
   }
 
   _item(int position) {
-    if (searchModel == null || searchModel.data == null) {
-      return null;
-    }
+    if (searchModel == null || searchModel.data == null) return null;
     SearchItem item = searchModel.data[position];
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WebView(
-                      url: item.url,
-                      title: '详情',
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebView(
+              url: item.url,
+              title: '详情',
+            ),
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -94,70 +92,73 @@ class _SearchPageState extends State<SearchPage> {
             border: Border(bottom: BorderSide(width: 0.3, color: Colors.grey))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Container(
               margin: EdgeInsets.all(1),
               child: Image(
-                width: 26,
-                height: 26,
-                image: AssetImage(_typeImage(item.type)),
-              ),
+                  height: 26,
+                  width: 26,
+                  image: AssetImage(_typeImage(item.type))),
             ),
             Column(
-              children: [
+              children: <Widget>[
                 Container(
                   width: 300,
                   child: _title(item),
                 ),
-                isSubTitle(item)
+                _isSubTitle(item),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  _appbar() {
+  _appBar() {
     return Column(
-      children: [
+      children: <Widget>[
         Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Color(0x66000000), Colors.transparent],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter)),
-          child: Container(
-            padding: EdgeInsets.only(top: 30),
-            height: 100,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(2, 3),
-                  blurRadius: 6,
-                  spreadRadius: 0.6)
-            ]),
-            child: SearchBar(
-              hideLeft: widget.hideLeft,
-              defaultText: widget.keyword,
-              hint: widget.hint,
-              leftButtonClick: () {
-                Navigator.pop(context);
-              },
-              onChanged: _onTextChange,
-              speakClick: _jumpToSpeak,
+            gradient: LinearGradient(
+              colors: [Color(0x66000000), Colors.transparent],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
+          child: Container(
+              padding: EdgeInsets.only(top: 30),
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(2, 3),
+                    blurRadius: 6,
+                    spreadRadius: 0.6,
+                  ),
+                ],
+              ),
+              child: SearchBar(
+                hideLeft: widget.hideLeft,
+                defaultText: widget.keyword,
+                hint: widget.hint,
+                leftButtonClick: () {
+                  Navigator.pop(context);
+                },
+                onChanged: _onTextChange,
+                speakClick: _jumpToSpeak,
+              )),
         )
       ],
     );
   }
-
-  void _jumpToSpeak() {
+  _jumpToSpeak() {
     NavigatorUtil.push(context, SpeakPage());
   }
 
-  void _onTextChange(String text) {
+  _onTextChange(String text) {
     keyword = text;
     if (text.length == 0) {
       setState(() {
@@ -193,38 +194,27 @@ class _SearchPageState extends State<SearchPage> {
     if (item == null) {
       return null;
     }
-
     List<TextSpan> spans = [];
     spans.addAll(_keywordTextSpans(item.word, searchModel.keyword));
     spans.add(TextSpan(
         text: ' ' + (item.districtname ?? '') + ' ' + (item.zonename ?? ''),
         style: TextStyle(fontSize: 16, color: Colors.grey)));
-    return RichText(
-      text: TextSpan(children: spans),
-    );
+    return RichText(text: TextSpan(children: spans));
   }
 
-  _sunTitle(SearchItem item) {
+  _subTitle(SearchItem item) {
     return RichText(
-      text: TextSpan(children: [
+      text: TextSpan(children: <TextSpan>[
         TextSpan(
-            text: item.price ?? '',
-            style: TextStyle(fontSize: 16, color: Colors.orange)),
+          text: item.price ?? '',
+          style: TextStyle(fontSize: 16, color: Colors.orange),
+        ),
         TextSpan(
-            text: ' ' + (item.star ?? '') + ' ',
-            style: TextStyle(fontSize: 12, color: Colors.grey))
+          text: ' ' + (item.star ?? ''),
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        )
       ]),
     );
-  }
-
-  isSubTitle(SearchItem item) {
-    return item.price != null
-        ? Container(
-            width: 300,
-            margin: EdgeInsets.only(top: 5),
-            child: _sunTitle(item),
-          )
-        : Container();
   }
 
   _keywordTextSpans(String word, String keyword) {
@@ -235,7 +225,6 @@ class _SearchPageState extends State<SearchPage> {
     TextStyle normalStyle = TextStyle(fontSize: 16, color: Colors.black87);
     TextStyle keywordStyle = TextStyle(fontSize: 16, color: Colors.orange);
     int preIndex = 0;
-
     for (int i = 0; i < arr.length; i++) {
       if (i != 0) {
         preIndex = wordL.indexOf(keywordL, preIndex);
@@ -249,5 +238,13 @@ class _SearchPageState extends State<SearchPage> {
       }
     }
     return spans;
+  }
+
+  _isSubTitle(SearchItem item) {
+    return item.price!=null?Container(
+      width: 300,
+      margin: EdgeInsets.only(top: 5),
+      child: _subTitle(item),
+    ):Container();
   }
 }
