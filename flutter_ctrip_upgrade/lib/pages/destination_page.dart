@@ -449,4 +449,3 @@ class _DestinationPageState extends State<DestinationPage> with AutomaticKeepAli
     ));
   }
 }
-
